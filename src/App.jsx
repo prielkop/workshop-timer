@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 
 // Firebase config
@@ -46,7 +45,7 @@ const colors = {
   arancio: '#FF7300',
 };
 
-function AdminView({ roomId }) {
+function AdminView({ roomId, onNewTimer }) {
   const [title, setTitle] = useState('');
   const [minutes, setMinutes] = useState(5);
   const [timerState, setTimerState] = useState(null);
@@ -238,7 +237,7 @@ function AdminView({ roomId }) {
         
         {isStopped && (
           <div style={{backgroundColor: colors.bluScuro, borderRadius: 12, padding: 20, marginBottom: 20}}>
-            <button onClick={() => setTimerState(null)} style={{
+            <button onClick={onNewTimer} style={{
               width: '100%', padding: 15, borderRadius: 8, border: 'none',
               backgroundColor: colors.celesteChiaro, color: colors.bluScurissimo, fontSize: 16, fontWeight: 600, cursor: 'pointer'
             }}>
@@ -366,7 +365,7 @@ export default function App() {
   }
   
   if (view === 'admin' && roomId) {
-    return <AdminView roomId={roomId} />;
+    return <AdminView roomId={roomId} onNewTimer={() => setRoomId(generateRoomId())} />;
   }
   
   return (
